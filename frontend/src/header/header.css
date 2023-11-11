@@ -1,0 +1,10 @@
+header {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 60px;
+}
+.cyf-logo{
+    width:120px;
+    height:60px ;
+}
