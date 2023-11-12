@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./TraineeForm.css";
 import Button from "../shared/Button";
 
-const TraineeForm = () => {
   const formInitialState = {
     trainee_name: "",
     github_link: "",
@@ -12,6 +11,9 @@ const TraineeForm = () => {
     about_me: "",
     skills: "",
   };
+
+const TraineeForm = () => {
+
   const [formDetails, setFormDetails] = useState(formInitialState);
 
   function handleInputChange(event) {
@@ -81,7 +83,6 @@ const TraineeForm = () => {
             id="frontend"
             type="radio"
             name="role"
-            // value={formDetails.role}
             value="frontend"
             onChange={handleInputChange}
           />
@@ -92,7 +93,6 @@ const TraineeForm = () => {
             id="fullstack"
             type="radio"
             name="role"
-            // value={formDetails.role}
             value="fullstack"
             onChange={handleInputChange}
           />
