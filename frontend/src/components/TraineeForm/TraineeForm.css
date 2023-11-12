@@ -1,0 +1,46 @@
+.reg-form {
+  display: grid;
+  row-gap: 15px;
+  width: 70%;
+  margin: 10px auto;
+  padding: 10px;
+  border: 2px solid plum;
+  font-size: 17px;
+}
+
+.role,
+.input-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.role-type {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.input-fields label {
+  font-weight: bold;
+}
+
+.input-fields input {
+  font-size: 16px;
+  padding: 5px;
+}
+
+@media screen and (min-width: 775px) {
+  .input-fields {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .data_input {
+    width: 70%;
+  }
+
+  .role {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
