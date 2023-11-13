@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import "./TraineeForm.css";
 import Button from "../shared/Button";
 
-  const formInitialState = {
-    trainee_name: "",
-    github_link: "",
-    portfolio_link: "",
-    linkedIn_link: "",
-    role: "",
-    about_me: "",
-    skills: "",
-  };
+const formInitialState = {
+  trainee_name: "",
+  github_link: "",
+  portfolio_link: "",
+  linkedIn_link: "",
+  role: "",
+  about_me: "",
+  skills: "",
+};
 
 const TraineeForm = () => {
-
   const [formDetails, setFormDetails] = useState(formInitialState);
 
   function handleInputChange(event) {
@@ -21,8 +20,50 @@ const TraineeForm = () => {
     setFormDetails({ ...formDetails, [event.target.name]: event.target.value });
   }
 
+  async function postFormData(data) {
+    try {
+      const response = await fetch("/fakeURL", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(await response.json());
+      }
+      const result = await response.json();
+      console.log("Success:", result);
+      setFormDetails(formInitialState);
+      return result;
+    } catch (error) {
+      console.log("Error:", error);
+      throw error;
+    }
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const data = {
+      trainee_name: formDetails.trainee_name,
+      github_link: formDetails.github_link,
+      portfolio_link: formDetails.portfolio_link,
+      linkedIn_link: formDetails.linkedIn_link,
+      role: formDetails.role,
+      about_me: formDetails.about_me,
+      skills: formDetails.skills,
+    };
+    try {
+      await postFormData(data);
+      setFormDetails(formInitialState);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
-    <form className="reg-form">
+    <form className="reg-form" onSubmit={handleSubmit}>
       <div className="input-fields">
         <label htmlFor="trainee_name">Name: </label>
         <input
