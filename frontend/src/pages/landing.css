@@ -1,0 +1,23 @@
+.firstSection {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.landingPic {
+    width: 700px;
+    height: 550px;
+    border-radius: 7px;
+    padding-top: 40px;
+    padding-left: 40px;
+
+}
+.landingText {
+    width: 500px;
+    height: 550px;
+    border-radius: 7px;
+    line-height: 1.5cm;
+    padding-top: 80px;
+    padding-right: 40px;
+
+}
