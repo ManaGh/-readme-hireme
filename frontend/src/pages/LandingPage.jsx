@@ -10,10 +10,7 @@ export const LandingPage = () => {
                     ipsam nisi maxime, repellat amet repellendus soluta laborum dignissimos 
                     porro! Quis tempore libero repudiandae culpa ad architecto quam praesentium 
                     eius repellendus?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores 
-                    ipsam nisi maxime, repellat amet repellendus soluta laborum dignissimos 
-                    porro! Quis tempore libero repudiandae culpa ad architecto quam praesentium 
-                    eius repellendus?</p>
+                    Lorem ipsum dolor sit amet</p>
             </div>
             <div className="bottom-section">
                 <div className="section-two">
