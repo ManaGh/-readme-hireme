@@ -3,7 +3,7 @@ import "./landing.css" ;
 
 export const LandingPage = () => {
     return (
-        <div>
+        <div className="landing-Container">
             <div className="firstSection">
                 <img className="landingPic" src = {landingPic} alt="landingPic" />
                 <p className="landingText">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores 
@@ -15,13 +15,13 @@ export const LandingPage = () => {
                     porro! Quis tempore libero repudiandae culpa ad architecto quam praesentium 
                     eius repellendus?</p>
             </div>
-            <div>
-                <div>
-                    <span></span>
+            <div className="bottom-section">
+                <div className="section-two">
+                    <span>See our wonderFull graduates</span>
                 </div>
-                <div>
-                    <span></span>
-                    <span></span>
+                <div className="section-three">
+                <img src="../images/github.svg" alt="GithubIcon" />
+                    <span>Log in with Github</span>
                 </div>
             </div>
         </div>

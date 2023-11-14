@@ -1,8 +1,18 @@
+.landing-Container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
 .firstSection {
     width: 90%;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
+    align-items: center;
+
 }
 .landingPic {
     width: 700px;
@@ -10,7 +20,6 @@
     border-radius: 7px;
     padding-top: 40px;
     padding-left: 40px;
-
 }
 .landingText {
     width: 500px;
@@ -20,4 +29,28 @@
     padding-top: 80px;
     padding-right: 40px;
 
+}
+.bottom-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.section-two {
+    width: 760px;
+    height: 70px;
+    background-color: rgb(248, 243, 243);
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-three {
+    width: 760px;
+    height: 70px;
+    background-color: rgb(248, 243, 243);
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
