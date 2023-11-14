@@ -17,11 +17,11 @@ export const LandingPage = () => {
             </div>
             <div className="bottom-section">
                 <div className="section-two">
-                    <span>See our wonderFull graduates</span>
+                    <span>See Our Wonderfull Graduates</span>
                 </div>
                 <div className="section-three">
                 <img src="../images/github.svg" alt="GithubIcon" />
-                    <span>Log in with Github</span>
+                    <span>Log In With Github</span>
                 </div>
             </div>
         </div>
