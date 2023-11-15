@@ -1,4 +1,5 @@
 import landingPic from "../images/landingPicture.jpg"
+// import GithubIcon from "../images/github.svg"
 import "./landing.css" ;
 
 export const LandingPage = () => {
@@ -17,7 +18,8 @@ export const LandingPage = () => {
                     <span>See Our Wonderfull Graduates</span>
                 </div>
                 <div className="section-three">
-                <img src="../images/github.svg" alt="GithubIcon" />
+                    <img className="githubSvg" src="../images/github.svg" alt="GIcon" />
+                    {/* <img src= {GithubIcon} alt="" /> */}
                     <span>Log In With Github</span>
                 </div>
             </div>
