@@ -1,11 +1,11 @@
 import { LandingPage } from './pages/LandingPage';
+import { Header } from './header/Header'; 
 
-function App() {
+export const App = () => {
   return (
-    <div >
-      <LandingPage />
+    <div>
+       <Header />
+       <LandingPage />
     </div>
   );
 }
-
-export default App;
