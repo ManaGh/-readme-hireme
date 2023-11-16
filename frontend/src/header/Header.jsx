@@ -5,7 +5,7 @@ import "./header.css"
 export const Header = ()=>{
     return(
         <header>
-            <img className="cyf-logo" src = {cyflogo} alt = "CYF Logo"/>
+            <img className="cyf-logo" src = {cyflogo} alt = "Code Your Future"/>
         </header>
     )
 }
