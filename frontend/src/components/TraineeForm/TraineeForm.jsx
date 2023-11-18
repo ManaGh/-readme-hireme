@@ -23,7 +23,7 @@ const TraineeForm = () => {
   async function postFormData(data) {
     try {
       const response = await fetch(
-        "http://127.0.0.1:5000/submit_trainee_form",
+        `${process.env.REACT_APP_BACKEND_URL}/submit_trainee_form`,
         {
           method: "POST",
           headers: {
@@ -36,29 +36,18 @@ const TraineeForm = () => {
         throw new Error(await response.json());
       }
       const result = await response.json();
-      console.log("Success:", result);
       setFormDetails(formInitialState);
       return result;
     } catch (error) {
-      console.log("Something went wrong:", error);
+      // console.log("Something went wrong:", error);
       throw error;
     }
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
-
-    const data = {
-      trainee_name: formDetails.trainee_name,
-      github_link: formDetails.github_link,
-      portfolio_link: formDetails.portfolio_link,
-      linkedIn_link: formDetails.linkedIn_link,
-      role: formDetails.role,
-      about_me: formDetails.about_me,
-      skills: formDetails.skills,
-    };
     try {
-      await postFormData(data);
+      await postFormData(formDetails);
       setFormDetails(formInitialState);
     } catch (error) {
       console.log(error.message);
