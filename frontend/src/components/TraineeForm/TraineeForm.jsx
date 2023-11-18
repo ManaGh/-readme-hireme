@@ -12,7 +12,7 @@ const formInitialState = {
   skills: "",
 };
 
-const TraineeForm = () => {
+export const TraineeForm = () => {
   const [formDetails, setFormDetails] = useState(formInitialState);
 
   function handleInputChange(event) {
@@ -164,5 +164,3 @@ const TraineeForm = () => {
     </form>
   );
 };
-
-export default TraineeForm;
