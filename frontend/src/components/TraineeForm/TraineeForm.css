@@ -5,7 +5,7 @@
   margin: 10px auto;
   padding: 10px;
   border: 2px solid plum;
-  font-size: 17px;
+  font-size: 1.06rem;
 }
 
 .role,
@@ -25,7 +25,7 @@
 }
 
 .input-fields input {
-  font-size: 16px;
+  font-size: 1rem;
   padding: 5px;
 }
 
