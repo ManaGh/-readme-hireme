@@ -15,7 +15,7 @@ export const LandingPage = () => {
             </div>
             <div className="bottom-section">
                 <div className="section-two">
-                    <span>See Our Wonderfull Graduates</span>
+                    <span>See Our Wonderful Graduates</span>
                 </div>
                 <div className="section-three">
                     <img className="githubSvg" src= {githubIcon} alt="" />
