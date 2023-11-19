@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import requests
+from dotenv import load_dotenv
+import os
 
 
 app = Flask(__name__)
@@ -25,12 +28,30 @@ trainee_data = {
 
 all_data = [trainee_data]
 
+gh_token = os.getenv("GITHUB_API_TOKEN")
+
 
 @app.route("/graduatesList")
 def graduates_list():
     print(f"All graduates: {trainee_data}")
     return jsonify(all_data)
 
+
+@app.route("/graduates", methods=["POST"])
+def graduates():
+    try:
+        GITHUB_HEADERS = {
+            "Authorization": f"Bearer {gh_token}",
+            "Content-Type": "application/json",
+        }
+        github_query_json = {
+            "query": '{user(login: "AndrianaOS"){avatarUrl(size: 256), name, bio, email, websiteUrl, repositoriesContributedTo(first: 10){totalCount}, pinnedItems(first: 10) {nodes {... on Repository {name}}}}}'}
+        response = requests.post(
+            os.getenv("GITHUB_API_ENDPOINT"), json=github_query_json, headers=GITHUB_HEADERS)
+        result = response.json()
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/submit_trainee_form", methods=["GET", "POST"])
