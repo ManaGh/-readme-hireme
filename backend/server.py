@@ -36,12 +36,16 @@ all_data = [trainee_data]
 gh_token = os.getenv("GITHUB_API_TOKEN")
 
 # Gets list of all graduates added to the array. To be refactored once database is established
+
+
 @app.route("/graduatesList", methods=["GET"])
 def graduates_list():
     print(f"All graduates: {trainee_data}")
     return jsonify(all_data)
 
 # Interacts with GitHub API to pull information stated in query. User login will take users GitHub username
+
+
 @app.route("/graduates", methods=["POST"])
 def graduates():
     try:
@@ -78,7 +82,7 @@ def submit_trainee_form():
         return jsonify({'message': 'Please fill in all required fields'}), 400
 
     all_data.append(new_trainee_data)
-    print(all_data)
+    # print(all_data)
     return jsonify(all_data)
 
 
