@@ -20,37 +20,34 @@ export const TraineeForm = () => {
     setFormDetails({ ...formDetails, [event.target.name]: event.target.value });
   }
 
-  async function postFormData(data) {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/submit_trainee_form`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      if (!response.ok) {
-        throw new Error(await response.json());
-      }
-      const result = await response.json();
-      setFormDetails(formInitialState);
-      return result;
-    } catch (error) {
-      // console.log("Something went wrong:", error);
-      throw error;
-    }
-  }
+  const apiUrl = process.env.REACT_APP_BACKEND_URL || "http://127.0.0.1:5000";
 
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      await postFormData(formDetails);
-      setFormDetails(formInitialState);
+      const response = await fetch(`${apiUrl}/submit_trainee_form`, {
+        // fetch(
+        //   `${process.env.REACT_APP_BACKEND_URL}/submit_trainee_form`,
+        //   {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDetails),
+      });
+      if (!response.ok) {
+        // throw new Error(await response.json());
+        const errorText = await response.text();
+        throw new Error(errorText || "Unknown error");
+      } else {
+        const result = await response.json();
+        console.log("Success", result);
+        setFormDetails(formInitialState);
+        return result;
+      }
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
+      console.error(error);
     }
   }
 
