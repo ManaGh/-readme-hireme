@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import requests
+import json
 
 load_dotenv()
 
@@ -18,6 +19,7 @@ db_conn = psycopg2.connect(db_url)
 
 INSERT_GRADUATE_RETURN_ID = "INSERT INTO graduates (trainee_name, github_link, portfolio_link, linkedIn_link, role, about_me, skills) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id"
 GET_GRADUATE_NAME = "SELECT 1 FROM graduates WHERE trainee_name = %s"
+GET_ALL_GRADUATES = "SELECT * FROM graduates"
 
 
 # Route that hits the root of the server. Use this to make sure the server is running
@@ -49,8 +51,35 @@ gh_token = os.getenv("GITHUB_API_TOKEN")
 
 @app.route("/graduatesList", methods=["GET"])
 def graduates_list():
-    print(f"All graduates: {trainee_data}")
-    return jsonify(all_data)
+    # print(f"All graduates: {trainee_data}")
+    # return jsonify(all_data)
+    try:
+        with db_conn.cursor() as cursor:
+            cursor.execute(GET_ALL_GRADUATES)
+            result = cursor.fetchall()
+
+            if not result:
+                response = make_response(jsonify(
+                    {"error": "List is empty"}), 400)
+            else:
+                column_names = [desc[0] for desc in cursor.description]
+                all_results = [dict(zip(column_names, row)) for row in result]
+                response = make_response(
+                    jsonify({"all graduates": all_results}))
+
+            return response
+            #     all_results = [dict(row) for row in result]
+            #     response = make_response(
+            #         jsonify({"all graduates": all_results}))
+
+            # return response
+            # all_results = [dict(row) for row in result]
+            # # return jsonify({"all graduates", all_results})
+            return json.dumps(all_results)
+    except Exception as error:
+        print(error)
+        # return error
+        return jsonify({"error": str(error)}), 500
 
 
 # Extracts GitHub username from github_link
@@ -140,4 +169,3 @@ def submit_trainee_form():
         # return {"error": error}, 400
         error_message = str(error)
         return jsonify({"error": error_message})
-
