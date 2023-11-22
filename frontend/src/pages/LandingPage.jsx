@@ -1,5 +1,6 @@
 import landingPic from "../images/landingPicture.jpg";
-import githubIcon from "../images/github-mark.svg";
+// import githubIcon from "../images/github-mark.svg";
+import Button from "../components/shared/Button";
 import "./landing.css";
 
 export const LandingPage = () => {
@@ -15,13 +16,11 @@ export const LandingPage = () => {
         </p>
       </section>
       <section className="bottom-section">
-        <aside className="section-two">
-          <span>See Our Wonderful Graduates</span>
-        </aside>
-        <aside className="section-three">
-          <img className="githubSvg" src={githubIcon} alt="" />
-          <span>Log In With Github</span>
-        </aside>
+        <Button
+          buttonName="See Our Wonderful Graduates"
+          className="section-two"
+        />
+        <Button buttonName="Add Graduate" className="section-two" />
       </section>
     </div>
   );
