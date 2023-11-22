@@ -1,56 +1,43 @@
 .landing-Container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 5px;
+  gap: 20px;
 }
-.firstSection {
-    width: 90%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
 
-}
 .landingPic {
-    width: 650px;
-    height: 400px;
-    border-radius: 7px;
+  width: 100%;
 }
-.landingText {
-    width: 500px;
-    height: 400px;
-    border-radius: 7px;
-    line-height: 1.5cm;
 
+.landingText {
+  line-height: 2;
+  margin-top: 20px;
 }
+
 .bottom-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-.section-two {
-    width: 600px;
-    height: 70px;
-    background-color: rgb(248, 243, 243);
-    border-radius: 7px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.landing-btn {
+  height: 50px;
+  background-color: rgb(248, 243, 243);
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 5px 10px;
+  font-weight: bold;
 }
-.section-three {
-    width: 600px;
-    height: 70px;
-    background-color: rgb(248, 243, 243);
-    border-radius: 7px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
+
+.icon-name {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
+
 .githubSvg {
-    width: 40px;
-    height: 40px;
+  width: 25px;
 }
