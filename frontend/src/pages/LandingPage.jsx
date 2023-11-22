@@ -12,15 +12,21 @@ export const LandingPage = () => {
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores
           ipsam nisi maxime, repellat amet repellendus soluta laborum
           dignissimos porro! Quis tempore libero repudiandae culpa ad architecto
-          quam praesentium eius repellendus? Lorem ipsum dolor sit amet
+          quam praesentium eius repellendus? Lorem ipsum dolor sit amet Lorem
+          ipsum dolor sit amet consectetur adipisicing elit. Sed temporibus
+          velit dolor numquam eaque ducimus delectus ipsum impedit facilis
+          asperiores error omnis, iusto fugiat consequatur quam nihil distinctio
+          dicta. Dolorem.
         </p>
       </section>
       <section className="bottom-section">
-        <Button
-          buttonName="See Our Wonderful Graduates"
-          className="section-two"
-        />
-        <Button buttonName="Add Graduate" className="section-two" />
+        <a href="/graduates">
+          <Button buttonName="See Our Wonderful Graduates" />
+        </a>
+
+        <a href="/trainee-form">
+          <Button buttonName="Add Graduate" />
+        </a>
       </section>
     </div>
   );
