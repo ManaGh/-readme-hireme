@@ -61,3 +61,9 @@
     align-items: center;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .landing-Container {
+    margin: 25px 10px 10px;
+  }
+}
