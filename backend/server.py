@@ -21,6 +21,7 @@ INSERT_GRADUATE_RETURN_ID = "INSERT INTO graduates (trainee_name, github_link, p
 GET_GRADUATE_NAME = "SELECT 1 FROM graduates WHERE trainee_name = (%s)"
 GET_ALL_GRADUATES = "SELECT * FROM graduates"
 GET_GRADUATE_ID = "SELECT id, trainee_name FROM graduates WHERE trainee_name = (%s)"
+GET_ALL_GITHUB_LINKS = "SELECT github_link FROM graduates"
 
 
 # Route that hits the root of the server. Use this to make sure the server is running
