@@ -1,13 +1,13 @@
+from flask import jsonify
 import os
 import psycopg2
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import requests
-import json
+import traceback
 
 load_dotenv()
-
 
 app = Flask(__name__)
 CORS(app)
@@ -18,8 +18,9 @@ db_url = os.getenv("DB_URL")
 db_conn = psycopg2.connect(db_url)
 
 INSERT_GRADUATE_RETURN_ID = "INSERT INTO graduates (trainee_name, github_link, portfolio_link, linkedIn_link, role, about_me, skills) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id"
-GET_GRADUATE_NAME = "SELECT 1 FROM graduates WHERE trainee_name = %s"
+GET_GRADUATE_NAME = "SELECT 1 FROM graduates WHERE trainee_name = (%s)"
 GET_ALL_GRADUATES = "SELECT * FROM graduates"
+GET_GRADUATE_ID = "SELECT id, trainee_name FROM graduates WHERE trainee_name = (%s)"
 
 
 # Route that hits the root of the server. Use this to make sure the server is running
@@ -51,8 +52,6 @@ gh_token = os.getenv("GITHUB_API_TOKEN")
 
 @app.route("/graduatesList", methods=["GET"])
 def graduates_list():
-    # print(f"All graduates: {trainee_data}")
-    # return jsonify(all_data)
     try:
         with db_conn.cursor() as cursor:
             cursor.execute(GET_ALL_GRADUATES)
@@ -68,14 +67,6 @@ def graduates_list():
                     jsonify({"all graduates": all_results}))
 
             return response
-            #     all_results = [dict(row) for row in result]
-            #     response = make_response(
-            #         jsonify({"all graduates": all_results}))
-
-            # return response
-            # all_results = [dict(row) for row in result]
-            # # return jsonify({"all graduates", all_results})
-            return json.dumps(all_results)
     except Exception as error:
         print(error)
         # return error
@@ -104,7 +95,7 @@ def extract_alphanumeric_details(url):
 
 # Example usage:
 extracted_result = extract_alphanumeric_details(trainee_data["github_link"])
-print("Extracted result:", extracted_result)
+# print("Extracted result:", extracted_result)
 
 
 # Interacts with GitHub API to pull information stated in query. User login will take users GitHub username
@@ -137,35 +128,61 @@ def graduates():
 def submit_trainee_form():
     try:
         print("Request method:", request.method)
-        print("Request data:", request.get_data())
+        print("What happens here:", request.get_json())
 
         data = request.get_json()
-        print(data)
+        print("This comes through:", data)
         trainee_name = data["trainee_name"]
-        print(trainee_name)
+        print("Name that comes through", trainee_name)
         github_link = data["github_link"]
         portfolio_link = data["portfolio_link"]
         linkedIn_link = data["linkedIn_link"]
         role = data["role"]
         about_me = data["about_me"]
         skills = data["skills"]
+
         with db_conn:
             with db_conn.cursor() as cursor:
-                cursor.execute(GET_GRADUATE_NAME, (trainee_name))
-                graduate_name = cursor.fetchall()[1]
+                cursor.execute(GET_GRADUATE_NAME, (trainee_name,))
+                existing_graduate_name = cursor.fetchone()
+
+            if existing_graduate_name:
+                raise ValueError(f"Graduate {trainee_name} already exists")
+
+        #     required_fields = ["trainee_name", "github_link",
+        #                        "portfolio_link", "linkedIn_link", "role", "about_me", "skills"]
+
+        #     if any(not data[field] for field in required_fields):
+        #         raise ValueError("Please fill in required fields")
+
+        #     cursor.execute(INSERT_GRADUATE_RETURN_ID, (trainee_name, github_link,
+        #                    portfolio_link, linkedIn_link, role, about_me, skills,))
+
+        #     cursor.execute(GET_GRADUATE_ID, (trainee_name,))
+        #     graduate_id = cursor.fetchone()[0]
+        #     print("Graduate ID for trainee", graduate_id)
+        # db_conn.commit()
+        # return jsonify({"id": graduate_id, "message": f"{trainee_name} successfully added"}), 201
+        with db_conn:
+            with db_conn.cursor() as cursor:
+                required_fields = ["trainee_name", "github_link",
+                                   "portfolio_link", "linkedIn_link", "role", "about_me", "skills"]
+
+                if any(not data[field] for field in required_fields):
+                    raise ValueError("Please fill in required fields")
+
+                cursor.execute(INSERT_GRADUATE_RETURN_ID, (trainee_name, github_link,
+                                                           portfolio_link, linkedIn_link, role, about_me, skills))
+
+                cursor.execute(GET_GRADUATE_ID, (trainee_name,))
                 graduate_id = cursor.fetchone()[0]
 
-                if graduate_name:
-                    raise ValueError("Graduate already exists")
-                elif not any(data[key] for key in [trainee_name, github_link, portfolio_link, linkedIn_link, role, about_me, skills]):
-                    raise ValueError("Please fill in required fields")
-                else:
-                    cursor.execute(INSERT_GRADUATE_RETURN_ID, (trainee_name, github_link,
-                                                               portfolio_link, linkedIn_link, role, about_me, skills))
         db_conn.commit()
         return jsonify({"id": graduate_id, "message": f"{trainee_name} successfully added"}), 201
     except Exception as error:
-        print(error)
-        # return {"error": error}, 400
-        error_message = str(error)
-        return jsonify({"error": error_message})
+        # Convert the exception to a string
+        print("This is the error message:", str(error))
+        traceback.print_exc()  # Print the traceback for more details
+        return jsonify({"error": str(error)}), 500
+
+
