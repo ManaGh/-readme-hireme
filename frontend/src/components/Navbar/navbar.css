@@ -1,0 +1,10 @@
+.NavbarContainer{
+    display: flex;
+    flex-direction: column;
+}
+.nav{
+    display: inline-flex;
+    gap: 120px;
+  list-style: none;
+
+}
