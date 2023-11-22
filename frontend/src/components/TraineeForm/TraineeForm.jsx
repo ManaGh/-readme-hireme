@@ -37,7 +37,9 @@ export const TraineeForm = () => {
       });
       if (!response.ok) {
         // throw new Error(await response.json());
+        console.error(`Error: ${response.status} - ${response.statusText}`);
         const errorText = await response.text();
+        console.log("Response:", errorText);
         throw new Error(errorText || "Unknown error");
       } else {
         const result = await response.json();
@@ -105,7 +107,7 @@ export const TraineeForm = () => {
         />
       </div>
 
-      <fieldset className="role">
+      <fieldset className="role" required>
         <legend>Role:</legend>
         <div className="role-type">
           <label htmlFor="frontend">Frontend: </label>
